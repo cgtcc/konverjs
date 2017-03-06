@@ -2,8 +2,9 @@
 //add csrf protection requirements for forms
 var cookieParser = require('cookie-parser');  
 var csrf = require('csurf');  
-var csrfProtection = csrf({ cookie: true });  
 var bodyParser = require('body-parser');  
+var csrfProtection = csrf({ cookie: true });  
+var parseForm = bodyParser.urlencoded({ extended: false })
 
 //start user management and routing requirements
 var express = require('express');
