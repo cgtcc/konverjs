@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session ( {
-    secret: "uinwyeotimewiotxnewogoi",
+    secret: "*******_____CHANGE_ME_WITH_YOUR_OWN_PASSPHRASE_______********",
     resave: true,
     saveUninitialized: true
 }));
