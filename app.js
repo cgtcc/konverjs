@@ -16,8 +16,11 @@ var routes = require('./routes/users');
 var setUpPassport = require("./setuppassport");
 
 
+var helmet = require('helmet');
+
 var app = express();
 
+app.use(helmet());
 
 
 //Connect to MongoDB server in the dev1234 database
