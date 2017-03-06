@@ -36,3 +36,17 @@
         </ul>
     </div>
 
+
+<div class="container">
+    <% errors.forEach(function(error){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+     <%   })  %>
+
+     <% infos.forEach(function(info){ %>
+        <div class="alert alert-info" role="alert">
+            <%= info %>
+        </div>
+     <%   })  %>
+</div>

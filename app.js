@@ -28,6 +28,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
+//Setting body-parser’s extended option to false makes the parsing simpler and more secure
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session ( {

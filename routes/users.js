@@ -25,4 +25,45 @@ router.get('/', function(req, res, next) {
   });
 });
 
+
+//adding sign-up routes
+
+var passport = require("passport");
+
+router.get('/signup', function(req, res){
+  res.sender('signup');
+});
+
+
+//body-parser adds the username and password to req.body
+router.post('/signup', function(req, res, next){
+  var username = req.body.username;
+  var password = req.body.password;
+
+//call findOne to return just one user. We want a match on usernames here
+  User.findOne({ username:username}, function(err, user){
+    if(err){ return next(err); }
+    if(user){
+      //if you find a user, you should bail out because that username already exist 
+      req.flash('error', 'User already exist');
+      return res.redirect('/signup');
+    }
+
+    //else create a new instance of the user model and continues to the next request handler
+    var newUser = new User({
+      username: username,
+      password: password
+    });
+    //saves the user to the database and continues to the next request handler
+    newUser.save(next);
+});
+//authenticate the user
+}, passport.authenticate('login', {
+  successRedirect: "/",
+  failureRedirect: "/signup",
+  failureFlash: true
+ }));
+
+
+
 module.exports = router;
