@@ -49,7 +49,7 @@ router.get("/signup", csrfProtection, function(req, res) {
 
 
 //body-parser adds the username and password to req.body
-router.post("/signup", function(req, res, next){
+router.post("/signup", parseForm, csrfProtection, function(req, res, next){
   var username = req.body.username;
   var password = req.body.password;
 
@@ -93,7 +93,7 @@ router.get("/login",  csrfProtection, function(req, res){
 });
 
 //login form action
-router.post("/login", passport.authenticate("login", {
+router.post("/login", parseForm, csrfProtection, passport.authenticate("login", {
   successRedirect: "/",
   failureRedirect: "/login",
   failureFlash: true
