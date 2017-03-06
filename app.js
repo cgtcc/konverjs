@@ -55,7 +55,7 @@ app.use(passport.session());
 
 //Middleware for determining if the user is authenticated
 //it's important to place this function before loading the routes, so every routes will inhert from this Middleware
-
+//all you need is to pass amIauthenticated to your routes to prevent unauthorized access to the ressource
 function amIauthenticated(req, res, next){
   if (req.isAuthenticated()) {  //this function is provided by passport.  Makes our life easier, and safer.
     next();

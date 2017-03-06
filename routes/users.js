@@ -31,7 +31,7 @@ router.use(function(req, res, next){
 
 /* GET users listing. */
 // queries the users collection, returning the newest users first
-router.get("/", function(req, res, next) {
+router.get("/", amIauthenticated, function(req, res, next) {
   User.find()
   .sort({ createdAt: "descending" })
   .exec(function(err, users) {
@@ -80,7 +80,7 @@ router.post("/signup", parseForm, csrfProtection, function(req, res, next){
  }));
 
 //profile router
-router.get("/users/:username", function(req, res, next) {
+router.get("/users/:username", amIauthenticated, function(req, res, next) {
   User.findOne({ username: req.params.username }, function(err, user) {
     if (err) { return next(err); }
     if (!user) { return next(404); }
@@ -101,9 +101,10 @@ router.post("/login", parseForm, csrfProtection, passport.authenticate("login", 
 }));
 
 //logout router
-router.get("/logout", function(req, res) {
+router.get("/logout", amIauthenticated, function(req, res) {
   req.logout();  //request logout to passport.js
   res.redirect("/");  //redirect to home after logout
 });
+
 
 module.exports = router;
