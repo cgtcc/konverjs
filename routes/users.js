@@ -31,7 +31,7 @@ router.use(function(req, res, next){
 //Middleware for determining if the user is authenticated
 //it's important to place this function before loading the routes, so every routes will inhert from this Middleware
 
-functions ensureAuthenticated(req, res, next){
+function ensureAuthenticated(req, res, next){
   if (req.isAuthenticated()) {  //this function is provided by passport.  Makes our life easier, and safer.
     next();
   } else {
