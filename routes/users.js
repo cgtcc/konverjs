@@ -1,10 +1,8 @@
 var express = require('express');
-
+var passport = require("passport");
 var User = require("../models/users");
-
 var router = express.Router();
 
-var passport = require("passport");
 
 // Sets useful variables for your templates
 router.use(function(req, res, next){
@@ -17,7 +15,7 @@ router.use(function(req, res, next){
 
 router.get("/", function(req, res, next) {
   User.find()
-  .sort({ createdAt:"descending"})
+  .sort({ createdAt: "descending" })
   .exec(function(err, users) {
     if (err) { return next(err); }
     res.render("index", { users: users });
@@ -28,7 +26,7 @@ router.get("/", function(req, res, next) {
 //adding sign-up routes
 
 
-router.get("/signup", function(req, res){
+router.get("/signup", function(req, res) {
   res.render("signup");
 });
 
