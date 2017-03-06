@@ -65,7 +65,7 @@ function amIauthenticated(req, res, next){
   }
 }
 
-
+//the routers are added to the main app
 app.use(routes);
 
 // catch 404 and forward to error handler
