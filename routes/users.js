@@ -29,6 +29,18 @@ router.use(function(req, res, next){
 });
 
 
+//Middleware for determining if the user is authenticated
+/*it's important to load this function before loading the routes, so every routes will inhert from this Middleware
+if amIauthenticated is passed to the routes.*/
+function amIauthenticated(req, res, next){
+  if (req.isAuthenticated()) {  //this function is provided by passport.  Makes our life easier, and safer.
+    next();
+  } else {
+    req.flash("info", "You must login first in order to access this ressource.");
+    res.redirect("/login");
+  }
+}
+
 /* GET users listing. */
 // queries the users collection, returning the newest users first
 router.get("/", amIauthenticated, function(req, res, next) {
@@ -106,7 +118,9 @@ router.get("/logout", amIauthenticated, function(req, res) {
   res.redirect("/");  //redirect to home after logout
 });
 
-
+router.get("/edit", amIauthenticated, function(req, res){
+  res.render("edit");
+});
 //edit profile router
 //Normally, this would be a PUT request, but browsers support only GET and POST in HTML forms
 router.post("/edit", amIauthenticated, function(req, res, next){
