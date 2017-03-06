@@ -88,8 +88,8 @@ router.get("/users/:username", function(req, res, next) {
 });
 
 //login router - will simply render the login view with the login form
-router.get("/login", function(req, res){
-  res.render("login");
+router.get("/login",  csrfProtection, function(req, res){
+  res.render("login", { csrfToken: req.csrfToken() });
 });
 
 //login form action
