@@ -107,4 +107,18 @@ router.get("/logout", amIauthenticated, function(req, res) {
 });
 
 
+//edit profile router
+router.post("/edit", amIauthenticated, function(req, res, next){
+  req.user.displayName = req.body.displayname;
+  req.user.bio = req.body.bio;
+  req.user.save(function(err){
+    if (err){
+      next(err);
+      return;
+    }
+    req.flash("info", "Profile updated!");
+    res.redirect("/edit");
+  });
+});
+
 module.exports = router;
