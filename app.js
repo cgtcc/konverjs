@@ -1,16 +1,21 @@
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var express = require('express');
+var flash = require("connect-flash");
+var mongoose = require('mongoose');
+var passport = require("passport");
 var path = require('path');
+var session = require("express-session");
+
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var session = require("express-session");
-var flash = require("connect-flash");
 var esc = require("esc");
+
 //Puts all of the routes in another file
 var routes = require('./routes/users');
 //var configurations = require('./configuration');
+var setUpPassport = require("./setuppassport");
+
 
 var app = express();
 
@@ -18,6 +23,7 @@ var app = express();
 
 //Connect to MongoDB server in the dev1234 database
 mongoose.connect("mongodb://localhost:27017/dev1234");
+setUpPassport();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,6 +45,10 @@ app.use(session ( {
 
 
 app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(routes);
 
 // catch 404 and forward to error handler
