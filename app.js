@@ -13,7 +13,7 @@ var esc = require("esc");
 //Puts all of the routes in another file
 var routes = require('./routes/users');
 //var configurations = require('./configuration');
-var setUpPassport = require("./setuppassport");
+var setUpPassport = require("./configpassport");
 
 
 
