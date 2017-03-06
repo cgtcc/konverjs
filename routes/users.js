@@ -87,5 +87,16 @@ router.get("/users/:username", function(req, res, next) {
   });
 });
 
+//login router - will simply render the login view with the login form
+router.get("/login", function(req, res){
+  res.render("login");
+});
+
+//login form action
+router.post("/login", passport.authenticate("login", {
+  successRedirect: "/",
+  failureRedirect: "/login",
+  failureFlash: true
+}));
 
 module.exports = router;
