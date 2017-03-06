@@ -1,12 +1,17 @@
+
+//add csrf protection requirements for forms
 var cookieParser = require('cookie-parser');  
 var csrf = require('csurf');  
 var csrfProtection = csrf({ cookie: true });  
-
 var bodyParser = require('body-parser');  
 
+//start user management and routing requirements
 var express = require('express');
 var passport = require("passport");
+//load our model inside the route file
 var User = require("../models/users");
+
+//load routing libraries from express framework
 var router = express.Router();
 
 
@@ -20,9 +25,11 @@ router.use(function(req, res, next){
   res.locals.errors = req.flash("error");
   res.locals.infos = req.flash("info");
   next();
-});/* GET users listing. */
-// queries the users collection, returning the newest users first
+});
 
+
+/* GET users listing. */
+// queries the users collection, returning the newest users first
 router.get("/", function(req, res, next) {
   User.find()
   .sort({ createdAt: "descending" })
