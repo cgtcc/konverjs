@@ -1,7 +1,17 @@
+var cookieParser = require('cookie-parser');  
+var csrf = require('csurf');  
+var csrfProtection = csrf({ cookie: true });  
+
+var bodyParser = require('body-parser');  
+
 var express = require('express');
 var passport = require("passport");
 var User = require("../models/users");
 var router = express.Router();
+
+
+// we need this because "cookie" is true in csrfProtection 
+router.use(cookieParser());
 
 
 // Sets useful variables for your templates
@@ -26,8 +36,8 @@ router.get("/", function(req, res, next) {
 //adding sign-up routes
 
 
-router.get("/signup", function(req, res) {
-  res.render("signup");
+router.get("/signup", csrfProtection, function(req, res) {
+  res.render("signup", { csrfToken: req.csrfToken() });
 });
 
 
