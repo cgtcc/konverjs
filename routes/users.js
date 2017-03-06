@@ -108,6 +108,7 @@ router.get("/logout", amIauthenticated, function(req, res) {
 
 
 //edit profile router
+//Normally, this would be a PUT request, but browsers support only GET and POST in HTML forms
 router.post("/edit", amIauthenticated, function(req, res, next){
   req.user.displayName = req.body.displayname;
   req.user.bio = req.body.bio;
