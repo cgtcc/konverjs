@@ -25,21 +25,35 @@ var userSchema = mongoose.Schema ({
 });
 
 
-//Pre-save action to hash the password
+//Asynchronous Pre-save action to hash the password
 //Before you save your model to the database, you’ll run code that will hash the password. 
 
+//declare emptu variable noop, a callback to be called during the hash calculation to signify progress
 var noop = function() {};
 
-
+//function to run before saving the password in the databse
+//we need to check if the user did a password change, or if a new password was created for a new user.  Then, we generate a Salt factor, we can use while we perform password encryption.
 userSchema.pre("save", function(done){
     var user = this;
 
+//if no change is made to the user password, then exit this function
     if (!user.isModified("password")) {
         return done();
     }
-
+/*genSalt(rounds, callback)
+rounds - [OPTIONAL] - the number of rounds to process the data for. (default - 10)
+callback - [REQUIRED] - a callback to be fired once the salt has been generated.
+error - First parameter to the callback detailing any errors.
+result - Second parameter to the callback providing the generated salt.*/
      bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
     if (err) { return done(err); }
+    /*bcrypt.hash(data, salt, progress, cb)
+data - [REQUIRED] - the data to be encrypted.
+salt - [REQUIRED] - the salt to be used to hash the password.
+progress - a callback to be called during the hash calculation to signify progress
+callback - [REQUIRED] - a callback to be fired once the data has been encrypted.
+error - First parameter to the callback detailing any errors.
+result - Second parameter to the callback providing the encrypted form.*/
     bcrypt.hash(user.password, salt, noop, function(err, hashedPassword) {
       if (err) { return done(err); }
       user.password = hashedPassword;
