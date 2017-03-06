@@ -21,7 +21,7 @@ router.use(cookieParser());
 
 // Sets useful variables for your templates
 router.use(function(req, res, next){
-  res.locals.currentUser = req.user;
+  res.locals.currentUser = req.user; //every view have access to the current user, wich pulls from req.user, wich is populated by Passport.
   res.locals.errors = req.flash("error");
   res.locals.infos = req.flash("info");
   next();
@@ -98,5 +98,11 @@ router.post("/login", passport.authenticate("login", {
   failureRedirect: "/login",
   failureFlash: true
 }));
+
+//logout router
+router.get("/logout", function(req, res) {
+  req.logout();  //request logout to passport.js
+  res.redirect("/");  //redirect to home after logout
+});
 
 module.exports = router;
