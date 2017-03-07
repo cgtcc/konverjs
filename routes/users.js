@@ -4,14 +4,15 @@ var cookieParser = require('cookie-parser');
 var csrf = require('csurf');  
 var bodyParser = require('body-parser');  
 var csrfProtection = csrf({ cookie: true });  
-var parseForm = bodyParser.urlencoded({ extended: false })
+var parseForm = bodyParser.urlencoded({ extended: false });
 
 //start user management and routing requirements
 var express = require('express');
 var passport = require("passport");
 //load our model inside the route file
 var User = require("../models/users");
-
+//var configurations = require('./configuration');
+var setUpPassport = require("../configpassport");
 //load routing libraries from express framework
 var router = express.Router();
 
@@ -43,7 +44,7 @@ function amIauthenticated(req, res, next){
 
 /* GET users listing. */
 // queries the users collection, returning the newest users first
-router.get("/", amIauthenticated, function(req, res, next) {
+router.get("/",  function(req, res, next) {
   User.find()
   .sort({ createdAt: "descending" })
   .exec(function(err, users) {
@@ -92,7 +93,7 @@ router.post("/signup", parseForm, csrfProtection, function(req, res, next){
  }));
 
 //profile router
-router.get("/users/:username", amIauthenticated, function(req, res, next) {
+router.get("/users/:username",  function(req, res, next) {
   User.findOne({ username: req.params.username }, function(err, user) {
     if (err) { return next(err); }
     if (!user) { return next(404); }
@@ -118,12 +119,12 @@ router.get("/logout", amIauthenticated, function(req, res) {
   res.redirect("/");  //redirect to home after logout
 });
 
-router.get("/edit", amIauthenticated, function(req, res){
-  res.render("edit");
+router.get("/edit", amIauthenticated, csrfProtection, function(req, res){
+  res.render("edit", { csrfToken: req.csrfToken() });
 });
 //edit profile router
 //Normally, this would be a PUT request, but browsers support only GET and POST in HTML forms
-router.post("/edit", amIauthenticated, function(req, res, next){
+router.post("/edit", amIauthenticated, parseForm, csrfProtection, function(req, res, next){
   req.user.displayName = req.body.displayname;
   req.user.bio = req.body.bio;
   req.user.save(function(err){

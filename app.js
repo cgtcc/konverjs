@@ -54,7 +54,6 @@ app.use(passport.session());
 
 
 
-
 //the routers are added to the main app
 app.use(routes);
 
