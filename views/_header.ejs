@@ -3,11 +3,20 @@
 
 <head>
 
-<meta charset="utf-8">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>Social Network Skeleton app</title>
 
+  <!-- Mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Material Design fonts -->
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.css">
 
 </head>
 
@@ -19,7 +28,7 @@
 
   <div class="container">
     <div class="navbar-header">
-        <a class="navbar-brand" href="/">About myself</a>
+        <a class="navbar-brand" href="/">Basic Social Network Skeleton</a>
     </div>
         <ul class="nav navbar-nav navbar-right">
         <% if (currentUser) { %>
@@ -35,7 +44,7 @@
         <% }  %>
         </ul>
     </div>
-
+</div>
 
 <div class="container">
     <% errors.forEach(function(error){ %>
@@ -50,3 +59,4 @@
         </div>
      <%   })  %>
 </div>
+<div class="col-md-12">

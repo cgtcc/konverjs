@@ -2,15 +2,21 @@
 
 <h1>Edit your profile</h1>
 
-<form action="/edit" method="post">
+<form class="form-horizontal" action="/edit" method="post">
   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+   <h3>Display name :<h3>
 
   <input name="displayname" type="text" class="form-control"
    placeholder="Display name"
    value="<%= currentUser.displayName || "" %>">
+   <br />
+   <h3>Biography :<h3>
   <textarea name="bio" class="form-control"
    placeholder="Tell us about yourself!">
    <%= currentUser.bio || "" %></textarea>
+      <br />
+   <br />
+
   <input type="submit" value="Update" class="btn
    btn-primary btn-block">
 </form>

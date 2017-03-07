@@ -1,14 +1,15 @@
 <% include _header %>
+<div class="well bs-component">
 
 <% if ((currentUser) && (currentUser.id === user.id)) { %>
     <a href="/edit" class="pull-right">Edit your profile</a>
     <% } %>
 
-<h1><%= user.name() %></h1>
-<h2>Joigned on <%= user.createdAt %></h2>
+<author><%= user.name() %></author>
+<pre>Joigned on <%= user.createdAt %></pre>
 
 <% if (user.bio) { %>
     <p><%= user.bio %></p>
     <% } %>
-
+</div>
 <% include _footer %>

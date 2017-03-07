@@ -1,23 +1,39 @@
 <% include _header %>
 
-<h1>Basic Social Network Skeleton</h1>
 
+        <div class="page-header">
+        </div>
+        <div class="bs-component">
 
 
 <% users.forEach(function(user) { %>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
+
+<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Panel primary</h3>
+            </div>
+            <div class="panel-body">
+          <h3>User : </h3>
       <a href="/users/<%= user.username %>">
         <%= user.name() %>  <%= user.username %>
       </a>
-    </div>
     <% if (user.bio) { %>
-      <div class="panel-body"><%= user.bio %></div>
+    <br />
+<h3>Biography : </h3>
+    <%= user.bio %>
     <% } %>
-  </div>
+              </div>
+          </div>
 
 <% }) %>
+
+
+
+
+
+
+
 
 
 <% include _footer %>
