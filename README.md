@@ -3,7 +3,7 @@ A comprehensive and secure Social network skeleton script providing user managem
 
 To install:
 
-1) install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [NodeJS](http://nodejs.org)
+1) install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [MongoDB](https://www.mongodb.com/download-center?jmp=docs) and [NodeJS](http://nodejs.org)
 
 2) open a terminal and clone this repository :  
 
