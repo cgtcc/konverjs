@@ -1,9 +1,6 @@
-use_strict:
-
 var configurations = {}
-
-configurations.username = "";
-configurations.password = "";
+configurations.apiUser = "";
+configurations.apiKey = "";
 configurations.emailFrom = "";
 
 module.exports = configurations;

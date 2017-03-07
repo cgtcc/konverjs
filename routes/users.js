@@ -7,7 +7,7 @@ var csrfProtection = csrf({ cookie: true });
 var parseForm = bodyParser.urlencoded({ extended: false });
 var configurations = require('../configuration');
 
-
+var host = "localhost:3333";
 //for email validaton
 var nodemailer = require("nodemailer");
 var redis = require('redis');
@@ -19,14 +19,16 @@ var async = require('async');
     * STMP is mail server which is responsible for sending and receiving email.
   * We are using Sendgrid here.
 */
-    var smtpTransport = nodemailer.createTransport({
-        service: 'Zoho',
-        auth: {
-            user: configurations.username, // Your email address
-            pass: configurations.password  // Your password
-        }
-    });    
-    // var client = nodemailer.createTransport(sgTransport(options)); // Use if using sendgrid configuration
+
+    var options = {
+    auth: {
+        api_user: configurations.apiUser,
+        api_key: configurations.apiKey
+    }
+};
+
+   
+  var smtpTransport = nodemailer.createTransport(sgTransport(options)); // Use if using sendgrid configuration
     // End Sendgrid Configuration Settings  
  /*------------------SMTP Over-----------------------------*/
 
@@ -67,28 +69,40 @@ function amIauthenticated(req, res, next){
 
 /* GET users listing. */
 // queries the users collection, returning the newest users first
-router.get("/",  function(req, res, next) {
+router.get("/users",  function(req, res, next) {
   User.find()
   .sort({ createdAt: "descending" })
   .exec(function(err, users) {
     if (err) { return next(err); }
-    res.render("index", { users: users });
+    res.render("users", { users: users });
   });
 });
+
+
 
 
 //adding sign-up routes
 
 
-router.get("/signup", csrfProtection, function(req, res) {
-  res.render("signup", { csrfToken: req.csrfToken() });
+router.get("/", csrfProtection, function(req, res) {
+  res.render("index", { csrfToken: req.csrfToken() });
 });
 
 
+
+//adding sign-up routes
+
+/*
+router.get("/signup", csrfProtection, function(req, res) {
+  res.render("signup", { csrfToken: req.csrfToken(), email: req.query.mail });
+});
+
+*/
 //body-parser adds the username and password to req.body
 router.post("/signup", parseForm, csrfProtection, function(req, res, next){
   var username = req.body.username;
   var password = req.body.password;
+  var email = req.body.email;
 
 //call findOne to return just one user. We want a match on usernames here
   User.findOne({ username:username}, function(err, user){
@@ -97,7 +111,7 @@ router.post("/signup", parseForm, csrfProtection, function(req, res, next){
     if(user){
       //if you find a user, you should bail out because that username already exist 
       req.flash("error", "User already exist");
-      return res.redirect("/signup");
+      return res.redirect("/profile");
     }
 
     //else create a new instance of the user model and continues to the next request handler
@@ -110,8 +124,8 @@ router.post("/signup", parseForm, csrfProtection, function(req, res, next){
 });
 //authenticate the user
 }, passport.authenticate("login", {
-  successRedirect: "/",
-  failureRedirect: "/signup",
+  successRedirect: "/profile",
+  failureRedirect: "/",
   failureFlash: true
  }));
 
@@ -191,17 +205,23 @@ router.post('/send',function(req,res) {
                         html: 'Hello!,<br><br>Thank you for registering at localhost.com. Please click on the link below to complete your activation:' + link
                     };
       callback(null,mailOptions,rand);
+      console.log(mailOptions);
     },
     function(mailData,secretKey,callback) {
       console.log(mailData);
 
 
-      // Sending email using Mandrill.
+      // Sending email using Sendgrid.
       smtpTransport.sendMail(mailData, function(error, response){
          if(error){
           console.log(error);
           return callback(true,"Error in sending email");
        }
+
+
+
+
+
         console.log("Message sent: " + JSON.stringify(response));
         // Adding hash key.
         redisClient.set(req.body.to,secretKey);
@@ -215,7 +235,7 @@ router.post('/send',function(req,res) {
   });
 });
 
-router.get('/verify',function(req,res) {
+router.get('/verify', csrfProtection, function(req,res) {
   if((req.protocol+"://"+req.get('host')) === ("http://"+host)) {
     async.waterfall([
       function(callback) {
@@ -239,13 +259,15 @@ router.get('/verify',function(req,res) {
             if(reply !== 1) {
               return callback(true,"Issue in redis");
             }
-            callback(null,"Email is verified");
+            console.log("Email is verified");
+            res.render("signup", { csrfToken: req.csrfToken(), email: req.query.mail });
           });
         } else {
           return callback(true,"Invalid token");
         }
       }
     ],function(err,data) {
+      console.log(data);
       res.send(data);
     });
   } else {

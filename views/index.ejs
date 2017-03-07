@@ -6,32 +6,32 @@
         <div class="bs-component">
 
 
-<% users.forEach(function(user) { %>
 
 
-<div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title"> User : <a href="/users/<%= user.username %>">
-        <%= user.name() %>  <%= user.username %>
-      </a></h3>
-            </div>
-            <div class="panel-body">
-         
-    <% if (user.bio) { %>
-<p><bold> Biography :</bold> </p>
-    <%= user.bio %>
-    <% } %>
-              </div>
-          </div>
+<h1>It's easy to register.</h1>
+<p>Type your email below, and we will email you an invitation.</p>
+<input type="text" id="to" placeholder="Enter E-mail which you want to verify"><br>
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+<button id="send_email">Send Email</button><br>
+<span id="message"></span>
 
-<% }) %>
-
-
-
-
-
-
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    var from,to,subject,text;
+    $("#send_email").click(function(){
+        to = $("#to").val();
+        $("#message").text("Sending E-mail...Please wait");
+        $.post("/send",{to:to},function(response) {
+            if(response.error) {
+                  $("#message").empty().html("Error - " + response.data);
+            } else {
+              $("#message").empty().html("<p>Email is been sent at "+to+" . Please check inbox !</p>");
+            }
+        });
+    });
+});
+</script>
 
 
 <% include _footer %>
