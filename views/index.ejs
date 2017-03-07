@@ -11,16 +11,14 @@
 
 <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Panel primary</h3>
+              <h3 class="panel-title"> User : <a href="/users/<%= user.username %>">
+        <%= user.name() %>  <%= user.username %>
+      </a></h3>
             </div>
             <div class="panel-body">
-          <h3>User : </h3>
-      <a href="/users/<%= user.username %>">
-        <%= user.name() %>  <%= user.username %>
-      </a>
+         
     <% if (user.bio) { %>
-    <br />
-<h3>Biography : </h3>
+<p><bold> Biography :</bold> </p>
     <%= user.bio %>
     <% } %>
               </div>
