@@ -1,5 +1,6 @@
-# Skeleton-Social_Network
-A comprehensive and secure Social network skeleton script providing user management using strong password encryption (bcrypt), status and user search.
+# Konverjs::Skeleton
+
+A comprehensive and secure Social Network skeleton application written on top of the Node.Js runtime using the Express.Js framework featuring user management with strong password encryption (bcrypt) and CSRF validation
 
 To install:
 
