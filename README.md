@@ -29,10 +29,14 @@ To install:
     
  And voilà :)  Visit [http://localhost:3000](http://localhost:3000) to view the app in a browser.
 
- TODO : 
+ TODO (seeking pull requests!) : 
 
  - add search feature
  - implement json REST api (right now we only render ejs views)
  - add social publication features
+ - add plugin support
  - create AngularJS app to query the API (make it MEAN)
+ - add support for [identicons](https://en.wikipedia.org/wiki/Identicon)
  - code review
+
+ 
