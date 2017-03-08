@@ -85,6 +85,7 @@ router.get("/users",  function(req, res, next) {
 
 
 router.get("/", csrfProtection, function(req, res) {
+  
   res.render("index", { csrfToken: req.csrfToken() });
 });
 

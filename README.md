@@ -3,16 +3,16 @@ A comprehensive and secure Social network skeleton script providing user managem
 
 To install:
 
-1) install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [MongoDB](https://www.mongodb.com/download-center?jmp=docs) and [NodeJS](http://nodejs.org)
+1) install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [MongoDB](https://www.mongodb.com/download-center?jmp=docs), [Redis](https://redis.io/) and [NodeJS](http://nodejs.org)
 
 2) open a terminal and clone this repository :  
 
-    git clone https://github.com/codecoaster/Skeleton-Social_Network/
+    git clone https://github.com/codecoaster/konverjs/
     
     
 3) go to the directory you just created : 
 
-    cd Skeleton-Social_Network
+    cd konverjs
 
 4) install the project dependencies + nodemon, a nodejs development server (recommended) :
 
