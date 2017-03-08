@@ -1,4 +1,4 @@
-# Konverjs::Skeleton
+# Konverjs ::Skeleton
 
 A comprehensive and secure Social Network skeleton application written on top of the Node.Js runtime using the Express.Js framework featuring user management with strong password encryption (bcrypt) and CSRF validation
 
