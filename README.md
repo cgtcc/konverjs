@@ -34,3 +34,4 @@ To install:
  - implement json REST api (right now we only render ejs views)
  - add social publication features
  - create AngularJS app to query the API (make it MEAN)
+ - code review
