@@ -11,7 +11,9 @@ var logger = require('morgan');
 var esc = require("esc");
 
 //Puts all of the routes in another file
-var routes = require('./routes/users');
+var users = require('./routes/users');
+var posts = require('./routes/posts');
+
 //var configurations = require('./configuration');
 var setUpPassport = require("./configpassport");
 
@@ -55,8 +57,8 @@ app.use(passport.session());
 
 
 //the routers are added to the main app
-app.use(routes);
-/*
+app.use('/', users);
+app.use('/posts', posts);/*
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

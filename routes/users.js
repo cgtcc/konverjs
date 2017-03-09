@@ -67,6 +67,8 @@ function amIauthenticated(req, res, next){
   }
 }
 
+
+
 /* GET users listing. */
 // queries the users collection, returning the newest users first
 router.get("/users",  function(req, res, next) {
@@ -145,7 +147,7 @@ router.get("/login",  csrfProtection, function(req, res){
 
 //login form action
 router.post("/login", parseForm, csrfProtection, passport.authenticate("login", {
-  successRedirect: "/",
+  successRedirect: "/posts",
   failureRedirect: "/login",
   failureFlash: true
 }));

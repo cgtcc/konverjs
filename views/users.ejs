@@ -1,20 +1,20 @@
 <% include _header %>
 
 
-<% users.forEach(function(user) { %>
+<% posts.forEach(function(post) { %>
 
 
 <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"> User : <a href="/users/<%= user.username %>">
-        <%= user.name() %>  <%= user.username %>
+              <h3 class="panel-title"> Title : <a href="/users/<%= post.slug %>">
+        <%= post.title() %>  
       </a></h3>
             </div>
             <div class="panel-body">
          
-    <% if (user.bio) { %>
-<p><bold> Biography :</bold> </p>
-    <%= user.bio %>
+    <% if (post.body) { %>
+<p><bold> Body :</bold> </p>
+    <%= post.body %>
     <% } %>
               </div>
           </div>
