@@ -1,0 +1,35 @@
+<% include _header %>
+
+<h1>Add a new post</h1>
+
+<form class="form-horizontal" action="/edit" method="post">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+   <h3>Post title :<h3>
+
+  <input name="postTitle" type="text" class="form-control"
+   placeholder="postTitle"
+   value="<%= currentUser.postTitle || "" %>">
+   <br />
+   <h3>Post body :<h3>
+  <textarea name="bio" class="form-control"
+   placeholder="Tell us about yourself!">
+   <%= currentUser.postTitle || "" %></textarea>
+      <br />
+   <br />
+
+  <input type="submit" value="Update" class="btn
+   btn-primary btn-block">
+</form>
+
+<% include _footer %>
+
+<!--
+ postTitle: { type: String, required: true, unique: true},
+    postBody: { type: String, required: true},
+    postSlug: { type: String, required: true},
+    postStatus: { type: Boolean, required: true},
+    postPrivacy: { type: Boolean, required: true},
+    postLikes: { type: Boolean, required: true},
+    createdAt: { type: Date, default: Date.now},
+    updatedAt: { type: Date, default: Date.now}
+    -->

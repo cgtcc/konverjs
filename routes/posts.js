@@ -54,4 +54,26 @@ router.get('/',amIauthenticated, function(req, res) {
   });
 });
 
+
+
+
+
+router.get("/new", amIauthenticated, csrfProtection, function(req, res){
+  res.render("newPost", { csrfToken: req.csrfToken() });
+});
+//edit profile router
+//Normally, this would be a PUT request, but browsers support only GET and POST in HTML forms
+router.post("/new", amIauthenticated, parseForm, csrfProtection, function(req, res, next){
+  req.post.displayName = req.body.displayname;
+  req.post.bio = req.body.bio;
+  req.post.save(function(err){
+    if (err){
+      next(err);
+      return;
+    }
+    req.flash("info", "Profile updated!");
+    res.redirect("/posts");
+  });
+});
+
 module.exports = router;
