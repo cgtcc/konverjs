@@ -1,6 +1,6 @@
 var configurations = {}
-configurations.apiUser = "";
-configurations.apiKey = "";
+configurations.sendgridUsername = "";
+configurations.sendgridPassword = "";
 configurations.emailFrom = "";
 
 module.exports = configurations;

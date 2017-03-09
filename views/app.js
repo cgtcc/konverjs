@@ -11,7 +11,7 @@ var logger = require('morgan');
 var esc = require("esc");
 
 //Puts all of the routes in another file
-var routes = require('./routes/users');
+var routes = require('./routes/');
 //var configurations = require('./configuration');
 var setUpPassport = require("./configpassport");
 

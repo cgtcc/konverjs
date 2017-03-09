@@ -7,36 +7,9 @@ var csrfProtection = csrf({ cookie: true });
 var parseForm = bodyParser.urlencoded({ extended: false });
 var configurations = require('../configuration');
 
-var host = "localhost:3333";
-//for email validaton
-var nodemailer = require("nodemailer");
-var redis = require('redis');
-var redisClient = redis.createClient(); // default setting.
-var sgTransport = require('nodemailer-sendgrid-transport'); // Import Nodemailer Sengrid Transport Package
-var async = require('async');
-/*
-    * Here we are configuring our SMTP Server details.
-    * STMP is mail server which is responsible for sending and receiving email.
-  * We are using Sendgrid here.
-*/
-
-    var options = {
-    auth: {
-        api_user: configurations.sendgridUsername,
-        api_key: configurations.sendgridPassword
-    }
-};
-
-   
-  var smtpTransport = nodemailer.createTransport(sgTransport(options)); // Use if using sendgrid configuration
-    // End Sendgrid Configuration Settings  
- /*------------------SMTP Over-----------------------------*/
-
 //start user management and routing requirements
 var express = require('express');
 var passport = require("passport");
-//load our model inside the route file
-var User = require("../models/users");
 var setUpPassport = require("../configpassport");
 //load routing libraries from express framework
 var router = express.Router();
@@ -89,6 +62,10 @@ router.get("/", csrfProtection, function(req, res) {
   res.render("index", { csrfToken: req.csrfToken() });
 });
 
+router.get("/posts", csrfProtection, function(req, res) {
+  
+  res.render("posts", { csrfToken: req.csrfToken() });
+});
 
 //adding sign-up routes
 
