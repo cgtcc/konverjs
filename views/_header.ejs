@@ -33,7 +33,8 @@
         <ul class="nav navbar-nav navbar-right">
         <% if (currentUser) { %>
             <li>
-                <a href="/edit">
+                                <a href="/users/<%= currentUser.name() %>">
+
                     Hello, <%= currentUser.name() %>
                 </a>
             </li>

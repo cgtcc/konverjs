@@ -65,9 +65,10 @@ router.post("/new",  parseForm, csrfProtection, function(req, res, next){
   new Post({
       postSubject    : req.body.subject,
       postBody    : req.body.textbody
-      }).save( function ( err, post){
-    if( err ) res.send(err);
-
+      }).save(function(err) {
+    if (err) {
+        return res.send(err);
+    }
     res.send( 'it worked!' );
   });
 });

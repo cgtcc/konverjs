@@ -7,10 +7,11 @@
 
 
 <% if ((currentUser) && (currentUser.id === user.id)) { %>
-    <a href="/edit" class="pull-right">Edit your profile</a>
+    <a href="/edit" class="pull-right btn btn-success">Edit your profile</a>
     <% } %>
 
 <author><%= user.name() %></author>
+
 <pre>Member since <%= user.createdAt %></pre>
 
 <% if (user.bio) { %>

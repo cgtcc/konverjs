@@ -160,6 +160,7 @@ router.get("/logout", amIauthenticated, function(req, res) {
   res.redirect("/");  //redirect to home after logout
 });
 
+
 router.get("/edit", amIauthenticated, csrfProtection, function(req, res){
   res.render("edit", { csrfToken: req.csrfToken() });
 });
