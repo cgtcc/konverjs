@@ -69,6 +69,16 @@ function amIauthenticated(req, res, next){
 
 
 
+
+//adding email invitation route (index page)
+
+
+router.get("/", csrfProtection, function(req, res) {
+  res.render("index", { csrfToken: req.csrfToken() });
+});
+
+
+
 /* GET users listing. */
 // queries the users collection, returning the newest users first
 router.get("/users",  function(req, res, next) {
@@ -82,14 +92,6 @@ router.get("/users",  function(req, res, next) {
 
 
 
-
-//adding sign-up routes
-
-
-router.get("/", csrfProtection, function(req, res) {
-  
-  res.render("index", { csrfToken: req.csrfToken() });
-});
 
 
 //adding sign-up routes

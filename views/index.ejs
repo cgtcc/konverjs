@@ -5,13 +5,17 @@
         </div>
         <div class="bs-component">
 
-
+     <% if (currentUser) { %>
+          
+          <h3>Add some content for logged in users here...</h3>
+        <% } else { %>
 
 
 <h1>It's easy to register.</h1>
 <p>Type your email below, and we will email you an invitation.</p>
-<input type="text" id="to" placeholder="Enter E-mail which you want to verify"><br>
 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+<input type="text" id="to" placeholder="Enter E-mail which you want to verify"><br>
 <button id="send_email">Send Email</button><br>
 <span id="message"></span>
 
@@ -32,6 +36,10 @@ $(document).ready(function(){
     });
 });
 </script>
+
+        <% }  %>
+
+
 
 
 <% include _footer %>

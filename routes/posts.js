@@ -1,4 +1,3 @@
-
 //add csrf protection requirements for forms
 var cookieParser = require('cookie-parser');  
 var csrf = require('csurf');  
@@ -44,12 +43,12 @@ function amIauthenticated(req, res, next){
 
 
 /* GET posts listing. */
-router.get('/',amIauthenticated, function(req, res) {
+router.get('/', csrfProtection, amIauthenticated, function(req, res) {
  Post.find()
   .sort({ createdAt: "descending" })
   .exec(function(err, posts) {
     if (err) { return next(err); }
-    res.render("posts", { posts: posts });
+    res.render("posts", { posts: posts,  csrfToken: req.csrfToken()  });
   });
 });
 
@@ -57,21 +56,43 @@ router.get('/',amIauthenticated, function(req, res) {
 
 
 
-router.get("/new", amIauthenticated, function(req, res){
-  res.render("newPost" );
+router.get("/new", csrfProtection, amIauthenticated, function(req, res){
+  res.render("newPost", { csrfToken: req.csrfToken() } );
 });
 //new post router
 //Normally, this would be a PUT request, but browsers support only GET and POST in HTML forms
-router.post("/new", amIauthenticated, parseForm,function(req, res, next){
+router.post("/new",  parseForm, csrfProtection, function(req, res, next){
   new Post({
-      postTitle    : req.bodyTitle,
-      postBody    : req.postBody,
-      updated_at : Date.now()
-  }).save( function ( err, todo, count ){
-    if( err ) return next( err );
+      postSubject    : req.body.subject,
+      postBody    : req.body.textbody
+      }).save( function ( err, post){
+    if( err ) res.send(err);
 
-    res.redirect( '/' );
+    res.send( 'it worked!' );
   });
 });
+
+/* req.user.displayName = req.body.displayname;
+  req.user.bio = req.body.bio;
+  req.user.save(function(err){
+    if (err){
+      next(err);
+      return;
+    }
+    req.flash("info", "Profile updated!");
+    res.redirect("/edit");
+    */
+
+
+/*
+var todo = new Todo(req.body);  
+todo.save(function (err, createdTodoObject) {  
+    if (err) {
+        res.send(err);
+    }
+    // This createdTodoObject is the same one we saved, but after Mongo
+    // added its additional properties like _id.
+    res.send(createdTodoObject);
+    */
 
 module.exports = router;

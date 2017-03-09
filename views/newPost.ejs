@@ -4,12 +4,13 @@
 
 <form class="form-horizontal" action="/posts/new" method="post">
    <h3>Post subject :<h3>
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
-  <input name="postSubject" type="text" class="form-control"
+  <input name="subject" type="text" class="form-control"
    placeholder="Subject of your post : Be creative!">
    <br />
    <h3>Post body :<h3>
-  <textarea name="postBody" class="form-control"
+  <textarea name="textbody" class="form-control"
    placeholder="What would you like to share with us?">
   </textarea>
       <br />
