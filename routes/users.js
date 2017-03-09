@@ -115,7 +115,7 @@ router.post("/signup", parseForm, csrfProtection, function(req, res, next){
     if(user){
       //if you find a user, you should bail out because that username already exist 
       req.flash("error", "User already exist");
-      return res.redirect("/profile");
+      return res.redirect("/posts");
     }
 
     //else create a new instance of the user model and continues to the next request handler
