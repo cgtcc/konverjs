@@ -9,25 +9,16 @@ var mongoose = require('mongoose');
 
 //Defining the posts schema 
 var postSchema = mongoose.Schema ({
-    postTitle: { type: String, required: true, unique: true},
+    postSubject: { type: String, required: true, unique: true},
     postBody: { type: String, required: true},
-    postSlug: { type: String, required: true},
+   /* postSlug: { type: String, required: true},
     postStatus: { type: Boolean, required: true},
     postPrivacy: { type: Boolean, required: true},
-    postLikes: { type: Boolean, required: true},
+    postLikes: { type: Boolean, required: true},*/
     createdAt: { type: Date, default: Date.now},
     updatedAt: { type: Date, default: Date.now}
 });
 
-
-
-//Adding a simple method to the posts model 
-//If the posts has defined a title, return that; otherwise, return postBody. The next listing shows how to add that.
-
-
-postSchema.methods.title = function(){
-    return this.postTitle || this.postBody;
-};
 
 
 

@@ -23,7 +23,6 @@ router.use(cookieParser());
 
 // Sets useful variables for your templates
 router.use(function(req, res, next){
-  res.locals.currentPosts = req.post; //every view have access to the current post, wich pulls from req.post, wich is populated by Passport.
   res.locals.errors = req.flash("error");
   res.locals.infos = req.flash("info");
   next();
@@ -58,21 +57,20 @@ router.get('/',amIauthenticated, function(req, res) {
 
 
 
-router.get("/new", amIauthenticated, csrfProtection, function(req, res){
-  res.render("newPost", { csrfToken: req.csrfToken() });
+router.get("/new", amIauthenticated, function(req, res){
+  res.render("newPost" );
 });
-//edit profile router
+//new post router
 //Normally, this would be a PUT request, but browsers support only GET and POST in HTML forms
-router.post("/new", amIauthenticated, parseForm, csrfProtection, function(req, res, next){
-  req.post.displayName = req.body.displayname;
-  req.post.bio = req.body.bio;
-  req.post.save(function(err){
-    if (err){
-      next(err);
-      return;
-    }
-    req.flash("info", "Profile updated!");
-    res.redirect("/posts");
+router.post("/new", amIauthenticated, parseForm,function(req, res, next){
+  new Post({
+      postTitle    : req.bodyTitle,
+      postBody    : req.postBody,
+      updated_at : Date.now()
+  }).save( function ( err, todo, count ){
+    if( err ) return next( err );
+
+    res.redirect( '/' );
   });
 });
 

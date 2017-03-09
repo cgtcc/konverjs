@@ -1,20 +1,22 @@
 <% include _header %>
 
 <h1>This will be a page listing every posts... dummy content 4 now...</h1>
+
+<a href="/posts/new">Create a new post</a>
 <% posts.forEach(function(post) { %>
 
 
 <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title"> Title : <a href="/posts/<%= post.slug %>">
-       <%= post.title %>
+       <%= post.postTitle %>
       </a></h3>
             </div>
             <div class="panel-body">
          
-    <% if (posts.body) { %>
+    <% if (post.postBody) { %>
 <p><bold> Body :</bold> </p>
-    <%= post.body %>
+    <%= post.postBody %>
     <% } %>
               </div>
           </div>
