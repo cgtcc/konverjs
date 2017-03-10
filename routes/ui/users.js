@@ -5,7 +5,7 @@ var csrf = require('csurf');
 var bodyParser = require('body-parser');  
 var csrfProtection = csrf({ cookie: true });  
 var parseForm = bodyParser.urlencoded({ extended: false });
-var configurations = require('../configuration');
+var configurations = require('../../configuration');
 
 var host = "localhost:3333";
 //for email validaton
@@ -36,8 +36,8 @@ var async = require('async');
 var express = require('express');
 var passport = require("passport");
 //load our model inside the route file
-var User = require("../models/users");
-var setUpPassport = require("../configpassport");
+var User = require("./models/users");
+var setUpPassport = require("../../configpassport");
 //load routing libraries from express framework
 var router = express.Router();
 

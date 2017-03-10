@@ -25,6 +25,8 @@ var userSchema = mongoose.Schema ({
 });
 
 
+
+
 //Asynchronous Pre-save action to hash the password
 //Before you save your model to the database, you’ll run code that will hash the password. 
 

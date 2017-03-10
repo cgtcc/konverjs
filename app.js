@@ -4,6 +4,7 @@ var express = require('express');
 var flash = require("connect-flash");
 var mongoose = require('mongoose');
 var passport = require("passport");
+var Strategy = require('passport-http-bearer').Strategy;
 var path = require('path');
 var session = require("express-session");
 var favicon = require('serve-favicon');
@@ -11,11 +12,14 @@ var logger = require('morgan');
 var esc = require("esc");
 
 //Puts all of the routes in another file
-var users = require('./routes/users');
-var posts = require('./routes/posts');
+var users = require('./routes/ui/users');
+var posts = require('./routes/ui/posts');
+var apiAuth = require('./routes/api/auth');
+
 
 //var configurations = require('./configuration');
 var setUpPassport = require("./configpassport");
+var setUpApiPassport = require("./configapipassport");
 
 
 
@@ -29,6 +33,8 @@ app.use(helmet());
 //Connect to MongoDB server in the dev1234 database
 mongoose.connect("mongodb://localhost:27017/dev1234");
 setUpPassport();
+setUpApiPassport();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -59,7 +65,7 @@ app.use(passport.session());
 //the routers are added to the main app
 app.use('/', users);
 app.use('/posts', posts);
-
+app.use('/api', apiAuth);
 
 
 /*
