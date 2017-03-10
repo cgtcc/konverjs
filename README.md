@@ -29,11 +29,22 @@ To install:
     
  And voilà :)  Visit [http://localhost:3000](http://localhost:3000) to view the app in a browser.
 
+ What's working at this time :
+
+ - user login
+ - user signup process : the user need to provide a valid email address. An email is sent through Sendrig, and the user need to validate the email address by clicking on a link before being able to complete the registration form.
+ - user can post something
+ - user can see other's posts, listed with he's own posts (chronologic order)
+ - user can view and edit profile (Biography and DisplayName)
+
+
+
  TODO (seeking pull requests!) : 
 
- - add search feature
+ - add search features
+ - user role management
  - implement json REST api (right now we only render ejs views)
- - add social publication features
+ - add better social publication features (i.e.: post status, post slugs, and other basic post blogging features)
  - add plugin support
  - create AngularJS app to query the API (make it MEAN)
  - add support for [identicons](https://en.wikipedia.org/wiki/Identicon)
