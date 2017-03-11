@@ -4,19 +4,67 @@
 //For development, use bcrypt-nodejs.  For faster results in production, use bcrypt.  In order to install bcrypt, you should first be able to compile (install gcc and make) on your system.  On ubuntu, simply install build-essentials package
 //var bcrypt = require("bcrypt-nodejs");  Bcrypt is written in C++, while bcrypt-nodejs is 100% javascript, and do not require compilation.
 //Do not forget to recompile bcrypt if gcc is updated on your system.
-var bcrypt = require("bcrypt-nodejs");
 var mongoose = require('mongoose');
 var userSchema = require('./schemas/users');
-
+var bcrypt = require('bcrypt-nodejs'); // Import Bcrypt Package
+var titlize = require('mongoose-title-case'); // Import Mongoose Title Case Plugin
+var validate = require('mongoose-validator'); // Import Mongoose Validator Plugin
 var SALT_FACTOR = 10;
 
+// User Name Validator
+var nameValidator = [
+    validate({
+        validator: 'matches',
+        arguments: /^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/,
+        message: 'Name must be at least 3 characters, max 30, no special characters or numbers, must have space in between name.'
+    }),
+    validate({
+        validator: 'isLength',
+        arguments: [3, 20],
+        message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters'
+    })
+];
 
+// User E-mail Validator
+var emailValidator = [
+    validate({
+        validator: 'matches',
+        arguments: /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/,
+        message: 'Name must be at least 3 characters, max 40, no special characters or numbers, must have space in between name.'
+    }),
+    validate({
+        validator: 'isLength',
+        arguments: [3, 40],
+        message: 'Email should be between {ARGS[0]} and {ARGS[1]} characters'
+    })
+];
 
+// Username Validator
+var usernameValidator = [
+    validate({
+        validator: 'isLength',
+        arguments: [3, 25],
+        message: 'Username should be between {ARGS[0]} and {ARGS[1]} characters'
+    }),
+    validate({
+        validator: 'isAlphanumeric',
+        message: 'Username must contain letters and numbers only'
+    })
+];
 
-
-
-//Asynchronous Pre-save action to hash the password
-//Before you save your model to the database, you’ll run code that will hash the password. 
+// Password Validator
+var passwordValidator = [
+    validate({
+        validator: 'matches',
+        arguments: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{8,35}$/,
+        message: 'Password needs to have at least one lower case, one uppercase, one number, one special character, and must be at least 8 characters but no more than 35.'
+    }),
+    validate({
+        validator: 'isLength',
+        arguments: [8, 35],
+        message: 'Password should be between {ARGS[0]} and {ARGS[1]} characters'
+    })
+];
 
 //declare emptu variable noop, a callback to be called during the hash calculation to signify progress
 var noop = function () { };
@@ -24,15 +72,20 @@ var noop = function () { };
 //Defining the user schema 
 var userSchema = mongoose.Schema({
     token: String,
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    name: { type: String, required: true, validate: nameValidator },
+    username: { type: String, lowercase: true, required: true, unique: true, validate: usernameValidator },
+    password: { type: String, required: true, validate: passwordValidator, select: false },
+    email: { type: String, required: true, lowercase: true, unique: true, validate: emailValidator },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     displayName: String,
     firstName: String,
     lastName: String,
-    bio: String
-
+    bio: String,
+    temporarytoken: { type: String, required: true },
+    active: { type: Boolean, required: true, default: false },
+    resettoken: { type: String, required: false },
+    permission: { type: String, required: true, default: 'user' }
 });
 //function to run before saving the password in the databse
 //we need to check if the user did a password change, or if a new password was created for a new user.  Then, we generate a Salt factor, we can use while we perform password encryption.

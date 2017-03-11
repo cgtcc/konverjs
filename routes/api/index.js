@@ -84,7 +84,6 @@ api.get('/users/:username', amIapiAuthenticated, function (req, res, next) {
 
 
 function amIapiAuthenticated(req, res, next) {
-
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     // decode token
