@@ -37,7 +37,7 @@ var async = require('async');
 var express = require('express');
 var passport = require("passport");
 //load our model inside the route file
-var User = require("./models/users");
+var User = require("../../models/users");
 var setUpPassport = require("../../configpassport");
 //load routing libraries from express framework
 var router = express.Router();

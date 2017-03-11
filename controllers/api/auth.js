@@ -5,7 +5,7 @@ var bodyParser  = require('body-parser');
 var mongoose    = require('mongoose');
 
 var jwt    = require('jsonwebtoken');
-var User   = require('../../routes/ui/models/users'); // get our mongoose model
+var User   = require('../../models/users'); // get our mongoose model
 
 // API ROUTES ------------------
 api.get('/', function(req, res) {

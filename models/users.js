@@ -6,7 +6,7 @@
 //Do not forget to recompile bcrypt if gcc is updated on your system.
 var bcrypt = require("bcrypt-nodejs");
 var mongoose = require('mongoose');
-var userSchema = require('../../../schemas/users');
+var userSchema = require('./schemas/users');
 
 var SALT_FACTOR = 10;
 

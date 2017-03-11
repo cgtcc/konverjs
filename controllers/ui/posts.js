@@ -10,7 +10,7 @@ var configurations = require('../../configuration');
 var express = require('express');
 var passport = require("passport");
 //load our model inside the route file
-var Post = require("./models/posts");
+var Post = require("../../models/posts");
 var setUpPassport = require("../../configpassport");
 //load routing libraries from express framework
 var router = express.Router();
