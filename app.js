@@ -9,8 +9,8 @@ var path = require('path');
 var session = require("express-session");
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var morgan      = require('morgan');
-var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var morgan = require('morgan');
+var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var configurations = require('./configuration');
 //Puts all of the routes in another file
 
@@ -50,10 +50,10 @@ app.use(bodyParser.json());
 //Setting body-parser’s extended option to false makes the parsing simpler and more secure
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session ( {
-    secret: configurations.secret,
-    resave: true,
-    saveUninitialized: true
+app.use(session({
+  secret: configurations.secret,
+  resave: true,
+  saveUninitialized: true
 }));
 
 

@@ -1,5 +1,7 @@
 
 
+
+
 var express = require('express');
 var api = express();
 var bodyParser = require('body-parser');
@@ -7,7 +9,10 @@ var mongoose = require('mongoose');
 
 var jwt = require('jsonwebtoken');
 var User = require('../../models/users'); // get our mongoose model
-var configurations = require('../../configuration')
+var configurations = require('../../configuration');
+
+
+
 // API ROUTES ------------------
 
 // route to authenticate a user (POST http://localhost:3333/api/authenticate)
@@ -63,6 +68,16 @@ api.post('/authenticate', function (req, res) {
 
 
 
+api.get('/', amIapiAuthenticated, function (req, res) {
+    res.json({ message: 'The API is working!' });
+});
+
+// route to return all users (GET http://localhost:3333/api/users)
+api.get('/users', amIapiAuthenticated, function (req, res) {
+    User.find({}, function (err, users) {
+        res.json(users);
+    });
+});
 
 
 
@@ -70,8 +85,8 @@ api.post('/authenticate', function (req, res) {
 
 
 
-// route middleware to verify a token
-api.use(function (req, res, next) {
+function amIapiAuthenticated(req, res, next) {
+
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     // decode token
@@ -94,25 +109,8 @@ api.use(function (req, res, next) {
             message: 'No token provided.'
         });
     }
-});
+}
 
-
-
-
-
-///everything after this line require auth token
-
-
-api.get('/', function (req, res) {
-    res.json({ message: 'The API is working!' });
-});
-
-// route to return all users (GET http://localhost:3333/api/users)
-api.get('/users', function (req, res) {
-    User.find({}, function (err, users) {
-        res.json(users);
-    });
-});
 
 
 
