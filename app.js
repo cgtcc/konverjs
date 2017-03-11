@@ -16,11 +16,11 @@ var configurations = require('./configuration');
 
 var users = require('./routes/ui/users');
 var posts = require('./routes/ui/posts');
-var api = require('./routes/api/auth');
+var api = require('./routes/api/index');
 
 
 //var configurations = require('./configuration');
-var setUpPassport = require("./configpassport");
+var setUpPassport = require("./middlewares/configpassport");
 
 
 

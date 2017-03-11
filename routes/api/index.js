@@ -83,6 +83,19 @@ api.get('/users', amIapiAuthenticated, function (req, res) {
 
 
 
+//profile router
+api.get('/users/:username', amIapiAuthenticated, function (req, res, next) {
+    User.findOne({ username: req.params.username }).select('username').exec(function (err, user) {
+        if (err) {
+            res.json({ status: 0, message: err });
+        }
+        if (!user) {
+            res.json({ status: 0, msg: "not found" });
+        }
+        res.json({ status: 1, username: user.username, message: " success" });
+    });
+});
+
 
 
 function amIapiAuthenticated(req, res, next) {
