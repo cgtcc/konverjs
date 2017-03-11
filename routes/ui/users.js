@@ -131,6 +131,8 @@ router.post("/signup", parseForm, csrfProtection, function (req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
   var email = req.body.email;
+  var firstname = req.body.firstname;
+  var lastname = req.body.lastname;
 
   //call findOne to return just one user. We want a match on usernames here
   User.findOne({ username: username }, function (err, user) {
@@ -146,7 +148,11 @@ router.post("/signup", parseForm, csrfProtection, function (req, res, next) {
     //else create a new instance of the user model and continues to the next request handler
     var newUser = new User({
       username: username,
-      password: password
+      password: password,
+      email: email,
+      firstname: firstname,
+      lastname: lastname,
+      active: true
     });
     //saves the user to the database and continues to the next request handler
     newUser.save(next);

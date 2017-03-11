@@ -20,7 +20,7 @@ var configurations = require('../../configuration');
 // route to authenticate a user (POST http://localhost:3333/api/authenticate)
 // Route for user logins
 api.post('/authenticate', function (req, res) {
-    var loginusername = (req.body.username).toLowerCase(); // Ensure username is checked in lowercase against database
+    var loginusername = (req.body.username); // Ensure username is checked in lowercase against database
     User.findOne({ username: loginusername }).select('username password active').exec(function (err, user) {
         if (err) {
             // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
