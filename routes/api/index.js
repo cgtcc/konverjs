@@ -24,22 +24,7 @@ api.post('/authenticate', function (req, res) {
     User.findOne({ username: loginusername }).select('username password active').exec(function (err, user) {
         if (err) {
             // Create an e-mail object that contains the error. Set to automatically send it to myself for troubleshooting.
-            var username = {
-                from: 'AwesomeApp Staff, admin@localhost',
-                to: 'admin@localhost',
-                subject: 'Error Logged',
-                text: 'The following error has been reported in the MEAN Stack Application: ' + err,
-                html: 'The following error has been reported in the MEAN Stack Application:<br><br>' + err
-            };
-            // Function to send e-mail to myself
-            client.sendMail(username, function (err, info) {
-                if (err) {
-                    console.log(err); // If error with sending e-mail, log to console/terminal
-                } else {
-                    console.log(info); // Log success message to console if sent
-                    console.log(user.username); // Display e-mail that it was sent to
-                }
-            });
+
             res.json({ success: false, message: 'Something went wrong. This error has been logged and will be addressed by our staff. We apologize for this inconvenience!' });
         } else {
             // Check if user is found in the database (based on username)           
