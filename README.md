@@ -27,7 +27,14 @@ To install:
 
     nodemon bin/www
     
- And voilà :)  Visit [http://localhost:3000](http://localhost:3000) to view the app in a browser.
+ And voilà :)  Now you can visit [http://localhost:3000/setup](http://localhost:3333/setup) to setup the user :
+
+     username : administrator
+     password: administrator
+
+**the /setup route will be replaced with an install script when a first stable release of this app will be available**
+
+Once the user is created, you can login : [http://localhost:3000](http://localhost:3333) 
 
  What's working at this time :
  
