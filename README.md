@@ -6,6 +6,8 @@ To install:
 
 1) install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [MongoDB](https://www.mongodb.com/download-center?jmp=docs), [Redis](https://redis.io/) and [NodeJS](http://nodejs.org)
 
+**after the installation of those requirements, check to make sure mongodb and redis are up and running and responding**
+
 2) open a terminal and clone this repository :  
 
     git clone https://github.com/codecoaster/konverjs/
