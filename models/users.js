@@ -72,7 +72,6 @@ var noop = function () { };
 //Defining the user schema 
 var userSchema = mongoose.Schema({
     token: String,
-    name: { type: String, required: true, validate: nameValidator },
     username: { type: String, lowercase: true, required: true, unique: true, validate: usernameValidator },
     password: { type: String, required: true, validate: passwordValidator, select: false },
     email: { type: String, required: true, lowercase: true, unique: true, validate: emailValidator },
