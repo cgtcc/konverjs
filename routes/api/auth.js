@@ -6,7 +6,7 @@ var mongoose    = require('mongoose');
 
 var jwt    = require('jsonwebtoken');
 var User   = require('../../models/users'); // get our mongoose model
-
+var configurations = require('../../configuration')
 // API ROUTES ------------------
 api.get('/', function(req, res) {
   res.json({ message: 'The API is working!' });
@@ -20,9 +20,9 @@ api.get('/users', function(req, res) {
 });   
 
 
-// route to authenticate a user (POST http://localhost:8080/api/authenticate)
+// route to authenticate a user (POST http://localhost:3333/api/authenticate)
 
-// route to authenticate a user (POST http://localhost:8080/api/authenticate)
+// route to authenticate a user (POST http://localhost:3333/api/authenticate)
 // Route for user logins
     api.post('/authenticate', function(req, res) {
         var loginusername = (req.body.username).toLowerCase(); // Ensure username is checked in lowercase against database
@@ -58,10 +58,10 @@ api.get('/users', function(req, res) {
                         var validPassword = user.comparePassword(req.body.password); // Check if password matches password provided by user 
                         if (!validPassword) {
                             res.json({ success: false, message: 'Could not authenticate password' }); // Password does not match password in database
-                        } else if (!user.active) {
-                            res.json({ success: false, message: 'Account is not yet activated. Please check your e-mail for activation link.', expired: true }); // Account is not activated 
-                        } else {
-                            var token = jwt.sign({ username: user.username }, config.secret, { expiresIn: '24h' }); // Logged in: Give user token
+                        } //else if (!user.active) {
+                           // res.json({ success: false, message: 'Account is not yet activated. Please check your e-mail for activation link.', expired: true }); // Account is not activated } 
+                           else {
+                            var token = jwt.sign({ username: user.username }, configurations.secret, { expiresIn: '24h' }); // Logged in: Give user token
                             res.json({ success: true, message: 'User authenticated!', token: token }); // Return token in JSON object to controller
                         }
                     }
