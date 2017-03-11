@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 
 
 //Defining the posts schema 
-var postSchema = mongoose.Schema ({
+var postSchema =   mongoose.Schema ({
     postSubject: { type: String, required: true, unique: true},
     postBody: { type: String, required: true},
    /* postSlug: { type: String, required: true},

@@ -6,23 +6,11 @@
 //Do not forget to recompile bcrypt if gcc is updated on your system.
 var bcrypt = require("bcrypt-nodejs");
 var mongoose = require('mongoose');
-
+var userSchema = require('../../../schemas/users');
 
 var SALT_FACTOR = 10;
 
 
-//Defining the user schema 
-var userSchema = mongoose.Schema ({
-    username: { type: String, required: true, unique: true},
-    password: { type: String, required: true},
-    createdAt: { type: Date, default: Date.now},
-    updatedAt: { type: Date, default: Date.now},
-    displayName: String,
-    firstName: String,
-    lastName: String,
-    bio: String
-
-});
 
 
 

@@ -1,8 +1,6 @@
+var records =  require('../../../schemas/users');
 
-var records = [
-    { id: 1, username: 'jack', token: '123456789', displayName: 'Jack', emails: [{ value: 'jack@example.com' }] }
-    , { id: 2, username: 'jill', token: 'abcdefghi', displayName: 'Jill', emails: [{ value: 'jill@example.com' }] }
-];
+
 
 exports.findByToken = function (token, cb) {
     process.nextTick(function () {
