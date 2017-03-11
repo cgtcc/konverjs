@@ -14,9 +14,9 @@ var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var configurations = require('./configuration');
 //Puts all of the routes in another file
 
-var users = require('./controllers/ui/users');
-var posts = require('./controllers/ui/posts');
-var api = require('./controllers/api/auth');
+var users = require('./routes/ui/users');
+var posts = require('./routes/ui/posts');
+var api = require('./routes/api/auth');
 
 
 //var configurations = require('./configuration');
