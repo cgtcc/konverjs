@@ -76,6 +76,14 @@ userSchema.methods.checkPassword = function(guess, done) {
 };
 
 
+
+// Method to compare passwords in API (when user logs in) 
+userSchema.methods.comparePassword = function(password) {
+    return bcrypt.compareSync(password, this.password); // Returns true if password matches, false if doesn't
+};
+
+
+
 //Adding a simple method to the user model 
 //If the user has defined a display name, return that; otherwise, return their username. The next listing shows how to add that.
 
