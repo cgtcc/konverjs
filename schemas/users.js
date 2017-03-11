@@ -10,7 +10,8 @@ var userSchema = mongoose.Schema ({
     displayName: String,
     firstName: String,
     lastName: String,
-    bio: String
+    bio: String,
+    admin: Boolean
 
 });
 

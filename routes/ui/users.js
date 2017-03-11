@@ -27,6 +27,7 @@ var async = require('async');
     }
 };
 
+
    
   var smtpTransport = nodemailer.createTransport(sgTransport(options)); // Use if using sendgrid configuration
     // End Sendgrid Configuration Settings  
@@ -53,6 +54,29 @@ router.use(function(req, res, next){
   res.locals.infos = req.flash("info");
   next();
 });
+
+router.get('/setup', function(req, res) {
+
+  // create a sample user
+  var defaultUser = new User({ 
+    username: "administrator",
+    password: "administrator",
+    displayName: "administrator",
+    firstName: "John",
+    lastName: "Doe",
+    bio: "lorem",
+    admin: true
+  });
+
+  // save the sample user
+  defaultUser.save(function(err) {
+    if (err) throw err;
+
+    console.log('User saved successfully');
+    res.json({ success: true });
+  });
+});
+
 
 
 //Middleware for determining if the user is authenticated

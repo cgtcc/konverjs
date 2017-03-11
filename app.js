@@ -9,17 +9,18 @@ var path = require('path');
 var session = require("express-session");
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var esc = require("esc");
-
+var morgan      = require('morgan');
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var configurations = require('./configuration');
 //Puts all of the routes in another file
+
 var users = require('./routes/ui/users');
 var posts = require('./routes/ui/posts');
-var apiAuth = require('./routes/api/auth');
+var api = require('./routes/api/auth');
 
 
 //var configurations = require('./configuration');
 var setUpPassport = require("./configpassport");
-var setUpApiPassport = require("./configapipassport");
 
 
 
@@ -31,9 +32,10 @@ app.use(helmet());
 
 
 //Connect to MongoDB server in the dev1234 database
-mongoose.connect("mongodb://localhost:27017/dev1234");
+mongoose.connect(configurations.database); // connect to database
+app.set('superSecret', configurations.secret); // secret variable
+
 setUpPassport();
-setUpApiPassport();
 
 
 // view engine setup
@@ -49,7 +51,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session ( {
-    secret: "*******_____CHANGE_ME_WITH_YOUR_OWN_PASSPHRASE_______********",
+    secret: configurations.secret,
     resave: true,
     saveUninitialized: true
 }));
@@ -65,8 +67,8 @@ app.use(passport.session());
 //the routers are added to the main app
 app.use('/', users);
 app.use('/posts', posts);
-app.use('/api', apiAuth);
-
+// apply the routes to our application with the prefix /api
+app.use('/api', api);
 
 /*
 // catch 404 and forward to error handler

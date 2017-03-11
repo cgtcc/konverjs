@@ -21,6 +21,19 @@ var SALT_FACTOR = 10;
 //declare emptu variable noop, a callback to be called during the hash calculation to signify progress
 var noop = function() {};
 
+//Defining the user schema 
+var userSchema = mongoose.Schema ({
+    token:    String,
+    username: { type: String, required: true, unique: true},
+    password: { type: String, required: true},
+    createdAt: { type: Date, default: Date.now},
+    updatedAt: { type: Date, default: Date.now},
+    displayName: String,
+    firstName: String,
+    lastName: String,
+    bio: String
+
+});
 //function to run before saving the password in the databse
 //we need to check if the user did a password change, or if a new password was created for a new user.  Then, we generate a Salt factor, we can use while we perform password encryption.
 userSchema.pre("save", function(done){
