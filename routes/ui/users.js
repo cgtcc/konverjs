@@ -65,7 +65,7 @@ router.get('/setup', function (req, res) {
     firstName: "John",
     lastName: "Doe",
     bio: "lorem",
-    admin: true
+    email: "dskfj@kdjsf.com"
   });
 
   // save the sample user
@@ -105,7 +105,7 @@ router.get("/", csrfProtection, function (req, res) {
 
 /* GET users listing. */
 // queries the users collection, returning the newest users first
-router.get("/users", function (req, res, next) {
+router.get("/users", amIauthenticated, function (req, res, next) {
   User.find()
     .sort({ createdAt: "descending" })
     .exec(function (err, users) {
@@ -159,7 +159,7 @@ router.post("/signup", parseForm, csrfProtection, function (req, res, next) {
 }));
 
 //profile router
-router.get("/users/:username", function (req, res, next) {
+router.get("/users/:username", amIauthenticated, function (req, res, next) {
   User.findOne({ username: req.params.username }, function (err, user) {
     if (err) { return next(err); }
     if (!user) { return next(404); }
